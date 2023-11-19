@@ -12,6 +12,7 @@
     "vue": "^3.3.8"
   },
   "devDependencies": {
+    "@unocss/preset-web-fonts": "^0.57.5",
     "@vitejs/plugin-vue": "^4.5.0",
     "typescript": "^5.2.2",
     "unocss": "^0.57.5",
