@@ -49,7 +49,7 @@ const props = defineProps({
 
 <template>
   <p>PCでみてね！</p>
-  <h1 class="text-2xl font-bold mt-1">📁 Vue.jsでDOM操作の鬼になり、パンくずの伸縮表示を極める.com</h1>
+  <h1 class="text-2xl font-bold mt-1">📁 Vue.jsでDOM操作の鬼になり、パンくずの伸縮表示を極めたい.com</h1>
   <div class="mt-2 flex justify-between items-center max-w-full">
     <breadcrumb-list
       class="shrink grow"
