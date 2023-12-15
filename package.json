@@ -1,11 +1,12 @@
 {
-  "name": "breadcrumb-like-google-drive",
+  "name": "breadcrumb-shrink-grow",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "run-p type-check build-only",
+    "build-only": "vite build --base=/breadcrumb-shrink-grow/",
     "preview": "vite preview"
   },
   "dependencies": {
