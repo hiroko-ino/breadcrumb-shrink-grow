@@ -4,7 +4,7 @@ export type BreadcrumbItemType = {
   id: string
   text: string
   parentId?: string
-  items?: FileType[]
+  items: FileType[]
 }
 
 export type BreadcrumbType = {

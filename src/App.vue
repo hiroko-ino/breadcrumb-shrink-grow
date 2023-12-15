@@ -32,7 +32,8 @@ const initialChildId = uuidv4()
 const folder = ref<BreadcrumbType>({
   [initialGrandfatherId]: {
     id: initialGrandfatherId,
-    text: 'initial grandfather folder'
+    text: 'initial grandfather folder',
+    items: []
   },
   [initialParentId]: {
     id: initialParentId,
@@ -90,7 +91,7 @@ const breadcrumbFolder = computed(() => {
 /**
  * コンテンツ部分に表示する現在のフォルダの内容
  */
-const contentsOfCurrent = computed(() => {
+const displayFolder = computed(() => {
   let result: BreadcrumbItemType[] = []
   Object.keys(folder.value).forEach((key) => {
     if (folder.value[key].parentId === currentId.value) {
@@ -100,29 +101,71 @@ const contentsOfCurrent = computed(() => {
   return result
 })
 
+/**
+ * 表示するファイル
+ */
 const displayFiles = computed(() => folder.value[currentId.value].items)
+
+/**
+ * フォルダに移動する
+ */
+const moveFolder = (id: string) => {
+  currentId.value = id
+}
+
+/**
+ * フォルダを作成する
+ */
+const createFolder = (parentId: string, folderName: string) => {
+  const clone = {
+    ...folder.value
+  }
+
+  const id = uuidv4()
+  clone[id] = {
+    id,
+    text: folderName,
+    items: [],
+    parentId,
+  }
+  folder.value = clone
+}
+
+/**
+ * ファイルを作成する
+ */
+const createFile = (parentId: string, fileName: string) => {
+  const clone = {
+    ...folder.value
+  }
+
+  clone[parentId].items.push(fileName)
+
+  folder.value = clone
+}
 </script>
 
 <template>
-  <div class="bg-red-200">
-    <div class="bg-white">
-      <main-header :list="breadcrumbFolder" />
-      <main-contents :displayFiles="displayFiles" :contentsOfCurrent="contentsOfCurrent" />
+  <div class="pa-5">
+    <div class="bg-white rounded py-3 px-4">
+      <main-header
+        :list="breadcrumbFolder"
+        :currentId="currentId"
+        :initialGrandfatherId="initialGrandfatherId"
+        @move-folder="moveFolder"
+        @create-folder="createFolder"
+        @create-file="createFile"
+      />
+    </div>
+    <div class="bg-white mt-5 rounded py-3 px-4">
+      <main-contents
+        :displayFiles="displayFiles"
+        :displayFolder="displayFolder"
+        @move-folder="moveFolder"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
 </style>

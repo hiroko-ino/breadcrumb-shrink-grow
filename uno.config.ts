@@ -8,7 +8,7 @@ export default defineConfig({
     presetWebFonts({
         provider: 'google',
         fonts: {
-        sans: 'Noto Sans JP',
+          sans: 'Noto Sans JP:400,700',
       },
     }),
     presetIcons({
@@ -18,4 +18,9 @@ export default defineConfig({
       },
     }),
   ],
+  theme: {
+    maxWidth: {
+      'breadcrumb': 'calc(100% - 360px - 36px)',
+    },
+  },
 })
